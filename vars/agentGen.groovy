@@ -4,7 +4,7 @@ def call(String podTemplatePath, String cloud, String container, Closure body) {
 
     podTemplate(label: label, yaml: podYaml, cloud: cloud)
     {
-        node(POD_LABEL) {
+        node(label) {
             container(container) {
                 body()
             }
