@@ -1,17 +1,13 @@
 def call(String podTemplatePath, String cloud, String container, Closure body) {
-  def label = UUID.randomUUID().toString()
-  def podYaml = libraryResource podTemplatePath
-  podTemplate(
-    name: label,
-    label: label,
-    yaml: podYaml,
-    cloud: cloud,
-    )
+    def label = UUID.randomUUID().toString()
+    def podYaml = libraryResource podTemplatePath
+
+    podTemplate(label: label, yaml: podYaml, cloud: cloud)
     {
-    node(label) {
-      container(container) {
-        body()
-      }
+        node(POD_LABEL) {
+            container(container) {
+                body()
+            }
+        }
     }
-  }
 }
