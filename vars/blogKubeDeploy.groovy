@@ -4,7 +4,7 @@ def call(imageName, gcpProject, githubCredentialId, repoOwner) {
     def podYaml = libraryResource 'podtemplates/kubeDeploy.yml'
     def deployYaml = libraryResource 'k8s/basicDeploy.yml'
     def envStagingRepo = "environment_staging"
-    
+
     podTemplate(name: 'kubectl', label: label, yaml: podYaml) {
       node(label) {
         imageNameTag()
