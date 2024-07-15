@@ -6,5 +6,5 @@ def call(String language) {
     if (!langMap.containsKey(language)) {
         error("Invalid language specified: ${language}. Valid options are: ${langMap.keySet()}")
     }
-    return langMap[language]
+    return libraryResource(langMap[language])
 }
