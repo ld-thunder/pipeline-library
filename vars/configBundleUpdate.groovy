@@ -12,6 +12,13 @@ def call(String nameSpace = "cbci") {
         sh "cp *.yaml ${bundleName}"
         sh "kubectl cp --namespace ${nameSpace} ${bundleName} cjoc-0:/var/jenkins_home/jcasc-bundles-store/ -c jenkins"
       }
+      echo "begin config bundle reload"
+      withCredentials([usernamePassword(credentialsId: 'admin-cli-token', usernameVariable: 'JENKINS_CLI_USR', passwordVariable: 'JENKINS_CLI_PSW')]) {
+        sh '''
+          curl --user $JENKINS_CLI_USR:$JENKINS_CLI_PSW -XGET http://${bundleName}/${bundleName}/casc-bundle-mgnt/check-bundle-update 
+          curl --user $JENKINS_CLI_USR:$JENKINS_CLI_PSW -XPOST http://${bundleName}/${bundleName}/casc-bundle-mgnt/reload-bundle/
+        '''
+      }
     }
   }
 }
