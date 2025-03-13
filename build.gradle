@@ -1,0 +1,35 @@
+plugins {
+    id 'groovy'
+    id 'java-library'
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://repo.jenkins-ci.org/releases/'
+    }
+    maven {
+        url "https://repo.cloudbees.com/content/repositories/dev-connect/"
+    }
+}
+
+dependencies {
+    implementation 'org.codehaus.groovy:groovy-all:3.0.9'
+    implementation 'org.jenkins-ci.main:jenkins-core:2.476'
+    implementation 'com.cloudbees.jenkins.plugins:cloudbees-casc-client:2.63'
+    implementation 'com.cloudbees.nectar:nectar-rbac:5.94'
+    implementation 'com.cloudbees.operations-center.common:operations-center-parent:3.27161'
+
+
+}
+
+sourceSets {
+    main {
+        groovy {
+            srcDirs = ['src', 'vars']
+        }
+        resources {
+            srcDirs = ['resources']
+        }
+    }
+}
